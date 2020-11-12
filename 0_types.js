@@ -75,7 +75,7 @@ const createChart = async () => {
 
 		let dimensions = {
 			width: size,
-			height: size * 0.6,
+			height: size * 0.66,
 			margin: {
 				top: 15,
 				right: 15,
@@ -89,7 +89,7 @@ const createChart = async () => {
 		dimensions.boundedHeight =
 			dimensions.height - dimensions.margin.top - dimensions.margin.bottom;
 
-		var nodePadding = 5;
+		var nodePadding = 0;
 
 		//////////////////////////// svg ///////////////////////////////////
 
