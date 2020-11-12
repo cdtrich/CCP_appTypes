@@ -129,8 +129,8 @@ const createChart = async () => {
 
 		const rScale = d3
 			.scaleSqrt()
-			.domain(d3.extent(data, rAccessor))
-			.range([10, dimensions.boundedHeight / 4]);
+			.domain([0, d3.max(data, rAccessor)])
+			.range([0, dimensions.boundedHeight / 3]);
 
 		const cScale = d3
 			.scaleOrdinal()
