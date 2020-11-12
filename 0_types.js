@@ -104,28 +104,17 @@ const createChart = async () => {
 
 		//////////////////////////// colors ///////////////////////////////////////
 
-		const colorsType = [
-			// "#113655",
-			// "#f28c00",
-			"#3f8ca5"
-			// "#fab85f",
-			// "#99d4e3",
-			// "#fed061"
-		];
+		const colorsType = ["#99d4e3", "#7fb8cb", "#669cb3", "#4f819b", "#3a6784"];
+
+		//////////////////////////// domains ///////////////////////////////////////
+
+		var dataType = _.chain(data)
+			.sort((d, i) => d3.ascending(d.val, i.val))
+			.map((d) => d[col])
+			.uniq()
+			.value();
 
 		//////////////////////////// scales ///////////////////////////////////////
-
-		const xScale = d3
-			.scaleLinear()
-			.domain(d3.extent(data, xAccessor))
-			.range([0, dimensions.boundedWidth])
-			.nice();
-
-		const yScale = d3
-			.scaleLinear()
-			.domain(d3.extent(data, yAccessor))
-			.range([dimensions.boundedHeight, 0])
-			.nice();
 
 		const rScale = d3
 			.scaleSqrt()
@@ -136,10 +125,10 @@ const createChart = async () => {
 			.scaleOrdinal()
 			.domain([
 				"Cyber espionage",
+				"Domestic cyber conflict",
 				"Military cyber operations",
-				"Cyber operations against public trust",
 				"Effect-creating cyber operations",
-				"Domestic cyber conflict"
+				"Cyber operations against public trust"
 			])
 			.range(colorsType);
 
