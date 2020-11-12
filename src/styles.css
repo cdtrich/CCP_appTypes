@@ -47,7 +47,7 @@ h1 {
 
 .nodes:hover {
 	opacity: 1 !important;
-	fill-opacity: 0.2 !important;
+	fill-opacity: 0.3 !important;
 }
 
 .dots:hover {

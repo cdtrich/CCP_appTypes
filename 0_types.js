@@ -75,7 +75,7 @@ const createChart = async () => {
 
 		let dimensions = {
 			width: size,
-			height: size * 0.66,
+			height: size * 0.75,
 			margin: {
 				top: 15,
 				right: 15,
@@ -89,7 +89,7 @@ const createChart = async () => {
 		dimensions.boundedHeight =
 			dimensions.height - dimensions.margin.top - dimensions.margin.bottom;
 
-		var nodePadding = 0;
+		var nodePadding = 50;
 
 		//////////////////////////// svg ///////////////////////////////////
 
@@ -110,6 +110,7 @@ const createChart = async () => {
 
 		var dataType = _.chain(data)
 			.sort((d, i) => d3.ascending(d.val, i.val))
+			// .sort((d, i) => d3.descending(d.val, i.val))
 			.map((d) => d[col])
 			.uniq()
 			.value();
@@ -121,16 +122,7 @@ const createChart = async () => {
 			.domain([0, d3.max(data, rAccessor)])
 			.range([0, dimensions.boundedHeight / 3]);
 
-		const cScale = d3
-			.scaleOrdinal()
-			.domain([
-				"Cyber espionage",
-				"Domestic cyber conflict",
-				"Military cyber operations",
-				"Effect-creating cyber operations",
-				"Cyber operations against public trust"
-			])
-			.range(colorsType);
+		const cScale = d3.scaleOrdinal().domain(dataType).range(colorsType);
 
 		///////////////////////////////////////////////////////////////////////////
 		//////////////////////////// plot /////////////////////////////////////////
@@ -153,8 +145,8 @@ const createChart = async () => {
 
 			dots
 				.style("fill", (d) => cScale(cAccessor(d)))
-				.style("fill-opacity", 0.1)
-				.attr("stroke", (d) => cScale(cAccessor(d)));
+				.style("fill-opacity", 0.3);
+			// .attr("stroke", (d) => cScale(cAccessor(d)));
 
 			const label = bounds
 				.selectAll(".label")
@@ -170,38 +162,27 @@ const createChart = async () => {
 			dots.on("mouseover", (event, d) => {
 				var mouseX = event.pageX + 5;
 				var mouseY = event.pageY + 5;
-				d3.select(".tooltip")
-					.style("visibility", "visible")
-					.style("opacity", 1)
-					.style("left", mouseX + "px")
-					.style("top", mouseY + "px")
-					.html("<u>" + d.title + "</u>" + "<br>" + d.value);
+				// d3.select(".tooltip")
+				// 	.style("visibility", "visible")
+				// 	.style("opacity", 1)
+				// 	.style("left", mouseX + "px")
+				// 	.style("top", mouseY + "px")
+				// 	.html("<u>" + d.title + "</u>" + "<br>" + d.value);
 				// smoother change in opacity
-				dots.transition().style("opacity", 0.25);
+				dots.transition().style("opacity", 0.3);
 			});
 
 			dots.on("mousemove", (d, i) => {
 				var mouseX = event.pageX + 5;
 				var mouseY = event.pageY + 5;
-				d3.select(".tooltip")
-					.style("left", mouseX + "px")
-					.style("top", mouseY + "px")
-					.html(
-						"<b>" +
-							d.title +
-							"</b>" +
-							"<br>" +
-							d.valLab +
-							" cases" +
-							"<br>" +
-							"<i>" +
-							d.desc +
-							"</i>"
-					);
+				// d3.select(".tooltip")
+				// 	.style("left", mouseX + "px")
+				// 	.style("top", mouseY + "px")
+				// 	.html(d.title);
 			});
 
 			dots.on("mouseleave", function (d) {
-				d3.select(".tooltip").style("visibility", "hidden");
+				// d3.select(".tooltip").style("visibility", "hidden");
 				dots.transition().style("opacity", 1);
 			});
 
