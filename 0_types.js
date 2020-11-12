@@ -75,7 +75,7 @@ const createChart = async () => {
 
 		let dimensions = {
 			width: size,
-			height: size * 0.5,
+			height: size * 0.6,
 			margin: {
 				top: 15,
 				right: 15,
